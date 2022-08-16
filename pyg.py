@@ -30,8 +30,7 @@ import torch.nn.functional as F
 data = dataset[0]
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 
-# with torchdynamo.optimize("eager"):
-for epoch in range(200):
+with torchdynamo.optimize("eager"):
     pred = model(data.x, data.edge_index)
     loss = F.cross_entropy(pred[data.train_mask], data.y[data.train_mask])
 
